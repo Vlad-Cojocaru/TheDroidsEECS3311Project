@@ -1,8 +1,8 @@
 EECS 3311: Project Pt.1 
 
-Backend for a service booking and consulting platform. This repo contains my contribution: **Booking & State Management** - the booking lifecycle, state machine, consulting services, time-slot availability, and related application services and repositories.
+Backend for a service booking and consulting platform. This repo contains vlad's contribution: **Booking & State Management** - the booking lifecycle, state machine, consulting services, time-slot availability, and related application services and repositories.
 
-## My contribution: Booking & State Management
+## Vlad's Contribution: Booking & State Management
 
 - **Domain:** `Booking`, `BookingStatus`, state classes (`RequestedState`, `ConfirmedState`, `PendingPaymentState`, `PaidState`, `RejectedState`, `CancelledState`, `CompletedState`), `ConsultingService`, `TimeSlot`
 - **Application:** `BookingService`, `AvailabilityService`
@@ -10,6 +10,18 @@ Backend for a service booking and consulting platform. This repo contains my con
 - **Infrastructure:** `InMemoryBookingRepository`, `InMemoryServiceRepository`, `InMemoryTimeSlotRepository`
 
 Other areas (payments, users, admin, notifications, CLI) are owned by other team members and will be integrated as the project progresses.
+
+## Dennis' Contribution: Payment Subsystem
+
+Domain: factory method(`PaymentValidationFactory`), 
+        payment validation strategies (`BankTransferValidationStrategy`, `CreditCardValidationStrategy`, `DebidCardValidation`, `PaymentValidationStrategy`, `PaypalValidationStrategy`),
+        `Payment`, `PaymentMethod`, `PaymentMethodType`, `PaymentStatus`
+
+Application: `PaymentService`
+
+Ports: `PaymentRepository`, `PaymentMethodRepository`
+
+Infrastructure: `InMemoryPaymentMethodRepository`, `InMemoryPaymentRepository`
 
 ## Build
 
