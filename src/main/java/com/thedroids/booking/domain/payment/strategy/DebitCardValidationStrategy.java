@@ -31,8 +31,6 @@ public class DebitCardValidationStrategy implements PaymentValidationStrategy {
         }
 
         // cvv should be 3 or 4 digits
-        if (!cvv.matches("\\d{3,4}")) {
-            return false;
-        }
+        return (cvv.matches("\\d{3,4}"));
     }
 }

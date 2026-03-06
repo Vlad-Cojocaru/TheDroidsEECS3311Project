@@ -8,26 +8,30 @@ import com.thedroids.booking.ports.repository.BookingRepository;
 import com.thedroids.booking.ports.repository.ServiceRepository;
 import com.thedroids.booking.ports.repository.TimeSlotRepository;
 
+import com.thedroids.booking.domain.notification.EventManager;
+
 import java.util.List;
 import java.util.UUID;
 
 /**
  * Handles UC1 (Browse Services), UC2 (Request Booking),
  * UC3 (Cancel Booking), UC4 (View Booking History).
- * event notifications can be wired in once the notification module is available.
  */
 public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final ServiceRepository serviceRepository;
     private final TimeSlotRepository timeSlotRepository;
+    private final EventManager eventManager;
 
     public BookingService(BookingRepository bookingRepository,
                           ServiceRepository serviceRepository,
-                          TimeSlotRepository timeSlotRepository) {
+                          TimeSlotRepository timeSlotRepository,
+                          EventManager eventManager) {
         this.bookingRepository = bookingRepository;
         this.serviceRepository = serviceRepository;
         this.timeSlotRepository = timeSlotRepository;
+        this.eventManager = eventManager;
     }
 
     // UC1: Browse all available consulting services. 
