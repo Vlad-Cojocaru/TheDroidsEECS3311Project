@@ -23,6 +23,19 @@ Ports: `PaymentRepository`, `PaymentMethodRepository`
 
 Infrastructure: `InMemoryPaymentMethodRepository`, `InMemoryPaymentRepository`
 
+## ChunYen's Contribution: Users, Notifications & Admin 
+
+Domain: user roles (`User`, `Client`, `Consultant`, `Admin`), notification system (`EventType`, `EventListener`, `EventManager`,` EmailNotificationListener`, `SMSNotificationListener`), system policy (`SystemPolicy`, `PolicyManager`)
+
+Application:`ConsultantService`, `AdminService`
+
+Ports: `UserRepository`
+
+Infrastructure: `InMemoryUserRepository`
+
+CLI: `ConsoleApp`
+
+
 ## Build
 
 - **Java:** 17  
@@ -32,3 +45,4 @@ Infrastructure: `InMemoryPaymentMethodRepository`, `InMemoryPaymentRepository`
 ## Diagrams
 
 UML and other diagrams go in `diagrams/`.
+
