@@ -4,7 +4,7 @@ Phase 2 - full frontend, Docker deployment, AI chatbot.
 
 ## Architecture Overview
 
-Standard Spring Boot MVC layout. The Phase 1 CLI and in-memory repos are gone — everything now goes through REST endpoints backed by Postgres.
+Standard Spring Boot MVC layout. The Phase 1 CLI and in-memory repos are gone, everything now goes through REST endpoints backed by Postgres.
 
 - `controller/` — REST endpoints. One per feature area (auth, bookings, payments, etc).
 - `service/` — Business logic for each use case. Same logic from Phase 1, just wired up with Spring `@Service` instead of manual constructor injection.
@@ -24,11 +24,9 @@ Frontend is plain HTML/CSS/JS served by nginx, which also proxies `/api/` reques
 
 ## How to Run (Docker)
 
-You need Docker installed.
+With Docker installed and opened run:
 
-```
 docker-compose up --build
-```
 
 That starts 3 containers — Postgres, the Spring Boot backend, and the nginx frontend. First build takes a few minutes because it pulls dependencies.
 

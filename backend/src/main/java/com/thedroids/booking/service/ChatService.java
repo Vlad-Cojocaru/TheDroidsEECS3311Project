@@ -2,7 +2,9 @@ package com.thedroids.booking.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thedroids.booking.model.policy.SystemPolicy;
 import com.thedroids.booking.model.service.ConsultingService;
+import com.thedroids.booking.repository.PolicyRepository;
 import com.thedroids.booking.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,11 +26,13 @@ public class ChatService {
     private String model;
 
     private final ServiceRepository serviceRepository;
+    private final PolicyRepository policyRepository;
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ChatService(ServiceRepository serviceRepository) {
+    public ChatService(ServiceRepository serviceRepository, PolicyRepository policyRepository) {
         this.serviceRepository = serviceRepository;
+        this.policyRepository = policyRepository;
     }
 
     public String ask(String userMessage) {
@@ -71,14 +75,19 @@ public class ChatService {
                         + " | " + s.getDurationMinutes() + " min | $" + s.getBasePrice())
                 .collect(Collectors.joining("\n"));
 
+        SystemPolicy policy = policyRepository.findAll().stream().findFirst()
+                .orElse(new SystemPolicy());
+
         return "You are the customer assistant for The Droids Service Booking & Consulting Platform. "
                 + "Help users with questions about the platform, booking process, payment methods, and policies.\n\n"
                 + "PLATFORM INFORMATION:\n"
                 + "- Users can browse consulting services, request bookings, and pay for sessions.\n"
                 + "- Booking flow: Client requests -> Consultant accepts/rejects -> Client pays -> Session completed.\n"
                 + "- Payment methods: Credit Card, Debit Card, PayPal, Bank Transfer (all simulated).\n"
-                + "- Cancellation policy: Bookings can be cancelled before completion. Default window is 24 hours.\n"
-                + "- Refund policy: 90% refund on cancellations within the window.\n\n"
+                + "- Cancellation policy: Bookings can be cancelled within " + policy.getCancellationWindowHours() + " hours. "
+                + "A " + String.format("%.0f", policy.getCancellationFeePercent()) + "% cancellation fee applies.\n"
+                + "- Refund policy: " + String.format("%.0f", policy.getRefundPercent()) + "% refund on cancellations within the window.\n"
+                + "- Notifications: " + (policy.isNotificationsEnabled() ? "enabled" : "disabled") + ".\n\n"
                 + "AVAILABLE SERVICES:\n" + (serviceList.isEmpty() ? "No services currently listed." : serviceList)
                 + "\n\nIMPORTANT: Never share personal user data, payment details, or private booking information. "
                 + "Only provide general platform information. Keep responses concise and helpful.";
@@ -135,8 +144,11 @@ public class ChatService {
             return "We accept Credit Card, Debit Card, PayPal, and Bank Transfer. "
                     + "Add a payment method in your dashboard, then pay for confirmed bookings.";
         } else if (lower.contains("cancel")) {
-            return "You can cancel a booking before it's completed. The default cancellation window is 24 hours. "
-                    + "Cancellations within the window receive a 90% refund.";
+            SystemPolicy policy = policyRepository.findAll().stream().findFirst()
+                    .orElse(new SystemPolicy());
+            return "You can cancel a booking before it's completed. The cancellation window is "
+                    + policy.getCancellationWindowHours() + " hours. "
+                    + "Cancellations within the window receive a " + String.format("%.0f", policy.getRefundPercent()) + "% refund.";
         } else if (lower.contains("service")) {
             List<ConsultingService> services = serviceRepository.findAll();
             if (services.isEmpty()) return "No services are currently available. Please check back later.";

@@ -48,8 +48,8 @@ async function loadAdminPolicy() {
             <input type="number" id="pol-fee" value="${policy.cancellationFeePercent}" step="1">
             <label>Refund (%):</label>
             <input type="number" id="pol-refund" value="${policy.refundPercent}" step="1">
-            <label>
-                <input type="checkbox" id="pol-notif" ${policy.notificationsEnabled ? 'checked' : ''}> Notifications Enabled
+            <label style="display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem">
+                <input type="checkbox" id="pol-notif" style="width:auto;margin:0" ${policy.notificationsEnabled ? 'checked' : ''}> Notifications Enabled
             </label>
             <button class="btn-primary" style="margin-top:0.75rem" onclick="savePolicy()">Save Policy</button>
             <div id="policy-msg" class="msg-info"></div>
