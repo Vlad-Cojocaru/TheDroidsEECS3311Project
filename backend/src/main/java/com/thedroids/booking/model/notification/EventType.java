@@ -1,0 +1,14 @@
+package com.thedroids.booking.model.notification;
+
+public enum EventType {
+    BOOKING_REQUESTED,
+    BOOKING_CONFIRMED,
+    BOOKING_REJECTED,
+    BOOKING_CANCELLED,
+    BOOKING_COMPLETED,
+    PAYMENT_PROCESSED,
+    PAYMENT_FAILED,
+    PAYMENT_REFUNDED,
+    CONSULTANT_APPROVED,
+    CONSULTANT_REJECTED
+}
