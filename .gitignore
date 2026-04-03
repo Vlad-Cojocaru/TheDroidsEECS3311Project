@@ -24,3 +24,12 @@ release.properties
 
 # Logs
 *.log
+
+# Environment (never commit API keys)
+.env
+
+# Docker
+docker-compose.override.yml
+
+# Node
+node_modules/
