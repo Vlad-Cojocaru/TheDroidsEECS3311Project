@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Booking &amp; Consulting Platform</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header id="app-header" style="display:none;">
+        <div class="header-content">
+            <h1>The Droids Booking Platform</h1>
+            <div id="user-info">
+                <span id="user-display"></span>
+                <button id="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+        <nav id="main-nav"></nav>
+    </header>
+
+    <main id="app">
+        <div id="page-login"></div>
+        <div id="page-client" style="display:none;"></div>
+        <div id="page-consultant" style="display:none;"></div>
+        <div id="page-admin" style="display:none;"></div>
+    </main>
+
+    <div id="chatbot-widget" style="display:none;">
+        <button id="chatbot-toggle" onclick="toggleChatbot()">💬 Assistant</button>
+        <div id="chatbot-panel" style="display:none;">
+            <div id="chatbot-header">
+                <span>AI Customer Assistant</span>
+                <button onclick="toggleChatbot()">✕</button>
+            </div>
+            <div id="chatbot-messages"></div>
+            <div id="chatbot-input-area">
+                <input type="text" id="chatbot-input" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendChat()">
+                <button onclick="sendChat()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/client.js"></script>
+    <script src="js/consultant.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script>
+        initRouter();
+    </script>
+</body>
+</html>
